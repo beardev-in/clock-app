@@ -20,17 +20,20 @@
             <h1><span id="hours">00</span>h : <span id="min"> 00</span>m : <span id="sec">00</span>s : <span id="mm">00</span>mm</h1>
             <button onclick="start()">Start</button>
             <button onclick="stop()">Reset</button>
+            <button onclick="pause()">Pause</button>
         </section>
     </center>
 </body>
 <script>
-    let blockID;
+    let blockID, seconds = 0, minute=0, hours = 0, mm=0, count = 0;
+
     function start(){
-        let seconds = 0, minute=0, hours = 0, mm=0;
-        blockID = setInterval(()=>{
+        count++;
+        if(count==1){
+            blockID = setInterval(()=>{
             document.getElementById("mm").innerText = String(++mm).padStart(2, '0');
 
-            if(minute==1 && seconds==3 && mm==100){
+            if(minute==59 && seconds==59 && mm==100){
                 document.getElementById("hours").innerText = String(++hours).padStart(2, '0');
                 document.getElementById("sec").innerText = '00';
                 document.getElementById("min").innerText = '00';
@@ -39,7 +42,7 @@
                 minute = 0;
                 mm = 0;
             }
-            if(seconds==3 && mm==100 && minute == 0){ 
+            if(seconds==59 && mm==100){ 
                 document.getElementById("min").innerText = String(++minute).padStart(2, '0');
                 document.getElementById("sec").innerText = `00`;
                 document.getElementById("mm").innerText = `00`;
@@ -53,14 +56,21 @@
                 document.getElementById("mm").innerText = `00`;
             }
         }, 10);
+        }
     }
 
     function stop(){
+        count = 0, seconds = 0, minute=0, hours = 0, mm=0, count = 0;
         clearInterval(blockID);
         document.getElementById("sec").innerText = '00';
         document.getElementById("min").innerText = '00';
         document.getElementById("hours").innerText = '00';
         document.getElementById("mm").innerText = '00';
+    }
+
+    function pause(){
+        count = 0;
+        clearInterval(blockID);
     }
 
 </script>
