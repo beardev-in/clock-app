@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .timer{
+        font-size: 50px;
+        font-family: monospace;
+    }
+</style>
+<body>
+    <audio id="myAudio">
+        <source src="../ticking-tok.mp3" typ="audio/mpeg">
+    </audio>
+    <center>
+        <section class="timer">
+            <h1><span id="hours">00</span>h : <span id="min"> 00</span>m : <span id="sec">00</span>s : <span id="mm">00</span>mm</h1>
+            <button onclick="start()">Start</button>
+            <button onclick="stop()">Reset</button>
+        </section>
+    </center>
+</body>
+<script>
+    let blockID;
+    function start(){
+        let seconds = 0, minute=0, hours = 0, mm=0;
+        blockID = setInterval(()=>{
+            //document.getElementById("myAudio").play();
+            document.getElementById("mm").innerText = String(++mm).padStart(2, '0');
+
+            if(minute==1 && seconds==3 && mm==100){
+                document.getElementById("hours").innerText = String(++hours).padStart(2, '0');
+                document.getElementById("sec").innerText = '00';
+                document.getElementById("min").innerText = '00';
+                document.getElementById("mm").innerText = `00`;
+                seconds = 0;
+                minute = 0;
+                mm = 0;
+            }
+            if(seconds==3 && mm==100 && minute == 0){ 
+                document.getElementById("min").innerText = String(++minute).padStart(2, '0');
+                document.getElementById("sec").innerText = `00`;
+                document.getElementById("mm").innerText = `00`;
+                seconds = 0;
+                mm=0;
+            }
+            if(mm==100){
+                mm=0;
+                document.getElementById("sec").innerText = String(++seconds).padStart(2, '0');
+                document.getElementById("mm").innerText = `00`;
+            }
+        }, 10);
+    }
+
+    function stop(){
+        clearInterval(blockID);
+        document.getElementById("sec").innerText = '00';
+        document.getElementById("min").innerText = '00';
+        document.getElementById("hours").innerText = '00';
+        document.getElementById("mm").innerText = '00';
+    }
+
+</script>
+</html>
