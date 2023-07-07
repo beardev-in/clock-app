@@ -28,7 +28,6 @@
     function start(){
         let seconds = 0, minute=0, hours = 0, mm=0;
         blockID = setInterval(()=>{
-            document.getElementById("myAudio").play();
             document.getElementById("mm").innerText = String(++mm).padStart(2, '0');
 
             if(minute==1 && seconds==3 && mm==100){
@@ -48,6 +47,7 @@
                 mm=0;
             }
             if(mm==100){
+                document.getElementById("myAudio").play();
                 mm=0;
                 document.getElementById("sec").innerText = String(++seconds).padStart(2, '0');
                 document.getElementById("mm").innerText = `00`;
